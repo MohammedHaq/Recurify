@@ -1,23 +1,20 @@
-import React, { useState } from 'react'
-import ReactDom from 'react-dom'
-import './App.css';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import './index.css'
 
-const Clients = [
-  // grab client info from database
-];
+export default function Dashboard() {
 
-const Products = [
-  // grab product info from database
-];
+  let clientList = [];
+  let productList = [];
 
-function Dashboard() {
-  const [clients, addClient] = useState(Clients);
-  const [products, addProduct] = useState(Products);
+
+  const [clients, setClient] = useState(clientList);  // Initialize with an empty array or actual data
+  const [products, setProduct] = useState(productList); // Initialize with an empty array or actual data
 
   return (
     <div className="dashboard">
       <div className="clients-section">
-        <h1>Welcome, USER</h1>
+        <h1>Welcome, Mohammed</h1>
         <h2>Clients</h2>
       </div>
 
@@ -26,6 +23,7 @@ function Dashboard() {
       </div>
     </div>
   );
-};
+}
 
-export default Dashboard;
+ReactDOM.render(<Dashboard />, document.getElementById('root'));
+
