@@ -1,31 +1,47 @@
 const express = require('express');
+const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
 
-app.use(cors()); // Enable CORS for all routes
+// Allow cross-origin requests
+app.use(cors());
+
+// Parse incoming requests data
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-require('dotenv').config();
+// MySQL Connection setup
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
+});
 
-const dbConfig = {
-  host: server.env.DB_HOST,
-  user: server.env.DB_USER,
-  password: server.env.DB_PASS,
-  database: server.env.DB_NAME
-};
+// Connect to the database
+db.connect((err) => {
+    if (err) {
+        console.error('Unable to connect to the database:', err);
+        return;
+    }
+    console.log('Connected to the database');
+});
+
+// Route to fetch clients data
+app.get('/getData', (req, res) => {
+    db.query('SELECT * FROM clients', (error, results) => {
+        if (error) {
+            console.error('Error fetching clients:', error);
+            res.status(500).send({ error: 'Database query failed' });
+            return;
+        }
+        res.send(results);
+    });
+});
 
 const PORT = 3001;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+    console.log(`Server is running on port ${PORT}`);
 });
-
-app.get('/getData', async (req, res) => {
-    try {
-      const [rows] = await pool.query('SELECT * FROM subscribers');
-      res.json(rows);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  });

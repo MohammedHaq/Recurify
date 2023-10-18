@@ -11,12 +11,8 @@ export default function Dashboard() {
       .catch(err => console.error('Error fetching data:', err));
   }, []);
 
-  let clientList = [];
-  let productList = [];
-
-
-  const [clients, setClient] = useState(clientList);  // Initialize with an empty array or actual data
-  const [products, setProduct] = useState(productList); // Initialize with an empty array or actual data
+  const [clients, setClient] = useState([]);  // Initialize with an empty array or actual data
+  // const [products, setProduct] = useState([]); Initialize with an empty array or actual data
 
   return (
     <div className="dashboard">
