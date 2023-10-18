@@ -31,7 +31,7 @@ db.connect((err) => {
 
 // Route to fetch clients data
 app.get('/getData', (req, res) => {
-    db.query('SELECT * FROM clients', (error, results) => {
+    db.query('SELECT * FROM subscribers', (error, results) => {
         if (error) {
             console.error('Error fetching clients:', error);
             res.status(500).send({ error: 'Database query failed' });
