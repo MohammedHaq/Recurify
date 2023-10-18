@@ -14,7 +14,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <div className="clients-section">
-        <h1>Welcome, Mohammed</h1>
+        <h1 className='app-title'>Welcome, Mohammed</h1>
         <h2>Clients</h2>
       </div>
 
